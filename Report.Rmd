@@ -1,0 +1,95 @@
+---
+title: "Patient Data Explorer"
+author: "Himanshi"
+date: "2026-04-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Overview
+
+This report demonstrates basic clinical-style data analysis using a simulated patient dataset in R.
+
+## Section 1: Data Creation
+
+```{r}
+set.seed(123)
+
+n <- 50
+
+patient_data <- data.frame(
+  patient_id = 1:n,
+  age = sample(5:70, n, replace = TRUE),
+  gender = sample(c("M", "F"), n, replace = TRUE),
+  treatment_grp = sample(c("D", "P"), n, replace = TRUE),
+  bp = round(rnorm(n, 120, 15))
+)
+
+patient_data
+```
+
+## Section 2: Filtering Patients (Age > 30)
+
+```{r}
+filtered_data <- subset(patient_data, age > 30)
+filtered_data
+```
+
+## Section 3: Blood Pressure Categorization
+
+```{r}
+filtered_data$bp_category <- ifelse(
+  filtered_data$bp > 130,
+  "High",
+  "Normal"
+)
+
+filtered_data
+```
+
+## Section 4: Summary Statistics
+
+```{r}
+summary(filtered_data)
+```
+
+## Section 5: Mean Blood Pressure by Treatment Group
+
+```{r}
+aggregate(bp ~ treatment_grp,
+          data = filtered_data,
+          mean)
+```
+
+## Section 6: Age Distribution
+
+```{r}
+hist(filtered_data$age,
+     col = "skyblue",
+     main = "Age Distribution",
+     xlab = "Age")
+```
+
+## Section 7: Blood Pressure by Treatment Group
+
+```{r}
+boxplot(bp ~ treatment_grp,
+        data = filtered_data,
+        col = c("orange", "green"),
+        main = "Blood Pressure by Treatment Group",
+        xlab = "Treatment Group",
+        ylab = "Blood Pressure")
+```
+
+## Conclusion
+
+This analysis demonstrates:
+- Patient data simulation  
+- Data filtering  
+- Feature creation  
+- Summary statistics  
+- Group-wise aggregation  
+- Basic data visualization
