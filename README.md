@@ -17,3 +17,5 @@ Open `Report.html`
 
 ## Author
 Himanshi
+
+Note: The dataset is simulated within the R script; the CSV file is provided for reference.
